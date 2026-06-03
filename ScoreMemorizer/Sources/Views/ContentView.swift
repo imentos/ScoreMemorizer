@@ -98,12 +98,14 @@ private struct PracticeSettingsView: View {
     var body: some View {
         NavigationStack {
             ScrollView {
-                VStack(spacing: 20) {
-                    SettingsCard(title: "Drill") {
+                VStack(spacing: 24) {
+                    SettingsSection(title: "Drill") {
                         SettingStepperRow(title: "Tempo", value: "\(session.bpm) BPM") {
                             StepIconButton(systemImage: "minus", action: { session.bpm = max(40, session.bpm - 2) })
                             StepIconButton(systemImage: "plus", action: { session.bpm = min(180, session.bpm + 2) })
                         }
+
+                        SettingDivider()
 
                         SettingPickerRow(title: "Time signature", value: timeSignatureText) {
                             Picker("Time signature", selection: beatsBinding) {
@@ -113,10 +115,14 @@ private struct PracticeSettingsView: View {
                             }
                         }
 
+                        SettingDivider()
+
                         SettingStepperRow(title: "Freeze length", value: session.freezeLengthText) {
                             StepIconButton(systemImage: "minus", action: { session.freezeBars = max(1, session.freezeBars - 1) })
                             StepIconButton(systemImage: "plus", action: { session.freezeBars = min(8, session.freezeBars + 1) })
                         }
+
+                        SettingDivider()
 
                         SettingPickerRow(title: "Freeze frequency", value: session.freezeDensityLabel) {
                             Picker("Freeze frequency", selection: freezeChanceBinding) {
@@ -127,7 +133,7 @@ private struct PracticeSettingsView: View {
                         }
                     }
                 }
-                .padding(.horizontal, 18)
+                .padding(.horizontal, 20)
                 .padding(.top, 18)
                 .padding(.bottom, 48)
             }
@@ -151,21 +157,23 @@ private struct PracticeSettingsView: View {
 
 }
 
-private struct SettingsCard<Content: View>: View {
+private struct SettingsSection<Content: View>: View {
     let title: String
     @ViewBuilder let content: Content
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 20) {
-            Text(title)
-                .font(.headline.weight(.semibold))
-            content
+        VStack(alignment: .leading, spacing: 8) {
+            Text(title.uppercased())
+                .font(.footnote.weight(.semibold))
+                .foregroundStyle(Color.appSecondaryText)
+                .padding(.horizontal, 4)
+
+            VStack(spacing: 0) {
+                content
+            }
+            .background(Color.panelBackground)
+            .clipShape(RoundedRectangle(cornerRadius: 8))
         }
-        .foregroundStyle(Color.appText)
-        .padding(18)
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .background(Color.panelBackground)
-        .clipShape(RoundedRectangle(cornerRadius: 8))
     }
 }
 
@@ -175,14 +183,14 @@ private struct SettingStepperRow<Controls: View>: View {
     @ViewBuilder let controls: Controls
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 12) {
-            SettingHeader(title: title, value: value)
-            HStack(spacing: 12) {
+        HStack(spacing: 14) {
+            SettingTitleValue(title: title, value: value)
+            Spacer(minLength: 12)
+            HStack(spacing: 10) {
                 controls
             }
-            .frame(maxWidth: .infinity, alignment: .trailing)
         }
-        .padding(.vertical, 2)
+        .settingRowPadding()
     }
 }
 
@@ -193,27 +201,54 @@ private struct SettingPickerRow<Content: View>: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
-            SettingHeader(title: title, value: value)
+            SettingTitleValue(title: title, value: value)
             content
                 .pickerStyle(.segmented)
         }
-        .padding(.vertical, 2)
+        .settingRowPadding()
     }
 }
 
-private struct SettingHeader: View {
+private struct SettingTitleValue: View {
     let title: String
     let value: String
 
     var body: some View {
-        HStack(alignment: .firstTextBaseline, spacing: 12) {
+        VStack(alignment: .leading, spacing: 4) {
             Text(title)
                 .font(.body.weight(.medium))
-            Spacer(minLength: 12)
+                .foregroundStyle(Color.appText)
             Text(value)
-                .font(.headline)
+                .font(.subheadline.weight(.semibold))
                 .foregroundStyle(Color.appSecondaryText)
         }
+        .lineLimit(1)
+        .minimumScaleFactor(0.82)
+    }
+}
+
+private struct SettingDivider: View {
+    var body: some View {
+        Rectangle()
+            .fill(Color.appSecondaryText.opacity(0.16))
+            .frame(height: 1)
+            .padding(.leading, 16)
+    }
+}
+
+private struct SettingRowPaddingModifier: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .padding(.horizontal, 16)
+            .padding(.vertical, 15)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .contentShape(Rectangle())
+    }
+}
+
+private extension View {
+    func settingRowPadding() -> some View {
+        modifier(SettingRowPaddingModifier())
     }
 }
 
@@ -225,9 +260,10 @@ private struct StepIconButton: View {
         Button(action: action) {
             Image(systemName: systemImage)
                 .font(.headline.weight(.bold))
-                .frame(width: 44, height: 40)
+                .frame(width: 38, height: 34)
         }
         .buttonStyle(.bordered)
+        .controlSize(.regular)
         .clipShape(RoundedRectangle(cornerRadius: 8))
         .accessibilityLabel(systemImage == "plus" ? "Increase" : "Decrease")
     }
