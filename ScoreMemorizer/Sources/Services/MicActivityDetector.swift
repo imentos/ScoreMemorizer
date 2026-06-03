@@ -17,6 +17,8 @@ final class MicActivityDetector {
 
     private let engine = AVAudioEngine()
     private var isTapInstalled = false
+    @ObservationIgnored
+    private lazy var levelRelay = MicLevelRelay(detector: self)
 
     func start() {
         guard stateIsNotListening else { return }
@@ -65,7 +67,7 @@ final class MicActivityDetector {
             }
 
             let session = AVAudioSession.sharedInstance()
-            try session.setCategory(.playAndRecord, mode: .default, options: [.defaultToSpeaker, .mixWithOthers, .allowBluetooth])
+            try session.setCategory(.playAndRecord, mode: .default, options: [.defaultToSpeaker, .mixWithOthers, .allowBluetoothHFP])
             try session.setActive(true)
 
             let input = engine.inputNode
@@ -80,12 +82,9 @@ final class MicActivityDetector {
                 isTapInstalled = false
             }
 
-            input.installTap(onBus: 0, bufferSize: 1024, format: format) { [weak self] buffer, _ in
-                let rms = Self.rmsLevel(from: buffer)
-                Task { @MainActor in
-                    self?.level = rms
-                    self?.onLevel?(rms)
-                }
+            let relay = levelRelay
+            input.installTap(onBus: 0, bufferSize: 1024, format: format) { buffer, _ in
+                relay.publish(Self.rmsLevel(from: buffer))
             }
             isTapInstalled = true
 
@@ -114,5 +113,21 @@ final class MicActivityDetector {
             sum += sample * sample
         }
         return sqrt(sum / Float(frameCount))
+    }
+}
+
+private final class MicLevelRelay: @unchecked Sendable {
+    private weak var detector: MicActivityDetector?
+
+    @MainActor
+    init(detector: MicActivityDetector) {
+        self.detector = detector
+    }
+
+    func publish(_ level: Float) {
+        Task { @MainActor [weak detector] in
+            detector?.level = level
+            detector?.onLevel?(level)
+        }
     }
 }
