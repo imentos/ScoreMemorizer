@@ -1,13 +1,18 @@
 import AVFoundation
 import Foundation
 import Observation
+import UIKit
 
 @Observable
 @MainActor
 final class CueSoundPlayer {
     private var players: [PracticeSession.SoundCue: AVAudioPlayer] = [:]
+    private let freezeFeedback = UINotificationFeedbackGenerator()
+    private let goFeedback = UIImpactFeedbackGenerator(style: .medium)
 
     init() {
+        freezeFeedback.prepare()
+        goFeedback.prepare()
         players[.beat] = makePlayer(frequency: 880, duration: 0.045, volume: 0.28)
         players[.strongBeat] = makePlayer(frequency: 1320, duration: 0.055, volume: 0.38)
         players[.freeze] = makePlayer(frequency: 330, duration: 0.34, volume: 1.0, accentFrequency: 660)
@@ -23,9 +28,24 @@ final class CueSoundPlayer {
             // If audio-session setup fails, still try to play; AVAudioPlayer may already be usable.
         }
 
+        playHaptic(for: cue)
+
         guard let player = players[cue] else { return }
         player.currentTime = 0
         player.play()
+    }
+
+    private func playHaptic(for cue: PracticeSession.SoundCue) {
+        switch cue {
+        case .freeze:
+            freezeFeedback.notificationOccurred(.warning)
+            freezeFeedback.prepare()
+        case .go:
+            goFeedback.impactOccurred(intensity: 0.75)
+            goFeedback.prepare()
+        case .beat, .strongBeat:
+            break
+        }
     }
 
     private func makePlayer(frequency: Double, duration: Double, volume: Float, accentFrequency: Double? = nil) -> AVAudioPlayer? {
