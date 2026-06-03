@@ -16,15 +16,19 @@ final class MicActivityDetector {
     var onLevel: ((Float) -> Void)?
 
     private let engine = AVAudioEngine()
+    private var isTapInstalled = false
 
     func start() {
-        switch AVAudioApplication.shared.recordPermission {
+        guard stateIsNotListening else { return }
+
+        let session = AVAudioSession.sharedInstance()
+        switch session.recordPermission {
         case .granted:
             startEngine()
         case .denied:
             state = .unavailable("Microphone permission denied")
         case .undetermined:
-            AVAudioApplication.requestRecordPermission { [weak self] granted in
+            session.requestRecordPermission { [weak self] granted in
                 Task { @MainActor in
                     if granted {
                         self?.startEngine()
@@ -39,21 +43,43 @@ final class MicActivityDetector {
     }
 
     func stop() {
-        engine.inputNode.removeTap(onBus: 0)
+        if isTapInstalled {
+            engine.inputNode.removeTap(onBus: 0)
+            isTapInstalled = false
+        }
         engine.stop()
+        engine.reset()
         state = .idle
         level = 0
     }
 
+    private var stateIsNotListening: Bool {
+        if case .listening = state { return false }
+        return true
+    }
+
     private func startEngine() {
         do {
+            if engine.isRunning {
+                stop()
+            }
+
             let session = AVAudioSession.sharedInstance()
-            try session.setCategory(.playAndRecord, mode: .measurement, options: [.defaultToSpeaker, .mixWithOthers])
+            try session.setCategory(.playAndRecord, mode: .default, options: [.defaultToSpeaker, .mixWithOthers, .allowBluetooth])
             try session.setActive(true)
 
             let input = engine.inputNode
-            let format = input.outputFormat(forBus: 0)
-            input.removeTap(onBus: 0)
+            let format = input.inputFormat(forBus: 0)
+            guard format.sampleRate > 0, format.channelCount > 0 else {
+                state = .unavailable("Microphone input is not available")
+                return
+            }
+
+            if isTapInstalled {
+                input.removeTap(onBus: 0)
+                isTapInstalled = false
+            }
+
             input.installTap(onBus: 0, bufferSize: 1024, format: format) { [weak self] buffer, _ in
                 let rms = Self.rmsLevel(from: buffer)
                 Task { @MainActor in
@@ -61,11 +87,17 @@ final class MicActivityDetector {
                     self?.onLevel?(rms)
                 }
             }
+            isTapInstalled = true
 
             engine.prepare()
             try engine.start()
             state = .listening
         } catch {
+            if isTapInstalled {
+                engine.inputNode.removeTap(onBus: 0)
+                isTapInstalled = false
+            }
+            engine.stop()
             state = .unavailable(error.localizedDescription)
         }
     }

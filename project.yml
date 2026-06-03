@@ -30,6 +30,7 @@ targets:
       properties:
         UIRequiresFullScreen: true
         UILaunchScreen: {}
+        NSMicrophoneUsageDescription: ScoreMemorizer listens for piano sound activity during Freeze and Go drills.
         UISupportedInterfaceOrientations:
           - UIInterfaceOrientationPortrait
 

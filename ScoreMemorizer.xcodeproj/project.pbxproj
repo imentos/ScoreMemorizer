@@ -23,7 +23,7 @@
 		944100310ECAC61F8E40DF64 /* MicActivityDetector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MicActivityDetector.swift; sourceTree = "<group>"; };
 		98DA5705BA32838CAFC13185 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		B8A24A88DDFDBB16DAB85D9C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		C49C2AC9AC2A4C7254A5E5D3 /* ScoreMemorizer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ScoreMemorizer.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C49C2AC9AC2A4C7254A5E5D3 /* ScoreMemorizer.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = ScoreMemorizer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D7BD51BF7CFC76DBE80230F1 /* CueSoundPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CueSoundPlayer.swift; sourceTree = "<group>"; };
 		EC6EF5215F2564296A2865AD /* MIDIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MIDIManager.swift; sourceTree = "<group>"; };
 		F8F943799F21CA67A85BED9F /* PracticeSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeSession.swift; sourceTree = "<group>"; };
@@ -117,6 +117,7 @@
 				LastUpgradeCheck = 1430;
 				TargetAttributes = {
 					9FA546986CAC2EDED08182F6 = {
+						DevelopmentTeam = FC7C97FJWX;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -174,7 +175,6 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				DEVELOPMENT_TEAM = 2HQJC64KR8;
 				INFOPLIST_FILE = ScoreMemorizer/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = ScoreMemorizer;
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "ScoreMemorizer listens for piano sound activity during Freeze and Go drills.";
@@ -255,7 +255,6 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				DEVELOPMENT_TEAM = 2HQJC64KR8;
 				INFOPLIST_FILE = ScoreMemorizer/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = ScoreMemorizer;
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "ScoreMemorizer listens for piano sound activity during Freeze and Go drills.";
