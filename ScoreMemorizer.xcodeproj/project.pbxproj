@@ -1,0 +1,365 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		1DB0B2128F208C96F6C11922 /* CueSoundPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7BD51BF7CFC76DBE80230F1 /* CueSoundPlayer.swift */; };
+		5FC7DDE72AF8B879223CF42C /* MIDIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC6EF5215F2564296A2865AD /* MIDIManager.swift */; };
+		7B63B4794248A93031D23CCF /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98DA5705BA32838CAFC13185 /* ContentView.swift */; };
+		93765503BFD2D0B3C98F8DF3 /* PracticeSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8F943799F21CA67A85BED9F /* PracticeSession.swift */; };
+		A1F12AEB149B21837D0CECF0 /* PracticeNote.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044AC7EAA46BD0CF30B07018 /* PracticeNote.swift */; };
+		A4D85B37239468534BB29110 /* ScoreMemorizerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11B1D5F071710347D6E9A1AB /* ScoreMemorizerApp.swift */; };
+		AFCE281B14645E1A98E64BD6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B8A24A88DDFDBB16DAB85D9C /* Assets.xcassets */; };
+		F2417ADCD0D2E360569A5663 /* MicActivityDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 944100310ECAC61F8E40DF64 /* MicActivityDetector.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		044AC7EAA46BD0CF30B07018 /* PracticeNote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeNote.swift; sourceTree = "<group>"; };
+		11B1D5F071710347D6E9A1AB /* ScoreMemorizerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreMemorizerApp.swift; sourceTree = "<group>"; };
+		944100310ECAC61F8E40DF64 /* MicActivityDetector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MicActivityDetector.swift; sourceTree = "<group>"; };
+		98DA5705BA32838CAFC13185 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		B8A24A88DDFDBB16DAB85D9C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		C49C2AC9AC2A4C7254A5E5D3 /* ScoreMemorizer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ScoreMemorizer.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D7BD51BF7CFC76DBE80230F1 /* CueSoundPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CueSoundPlayer.swift; sourceTree = "<group>"; };
+		EC6EF5215F2564296A2865AD /* MIDIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MIDIManager.swift; sourceTree = "<group>"; };
+		F8F943799F21CA67A85BED9F /* PracticeSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeSession.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		24E076C6FFF2FD03863E5D06 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				98DA5705BA32838CAFC13185 /* ContentView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		2DF6B4848B81E6FB55A5A891 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C49C2AC9AC2A4C7254A5E5D3 /* ScoreMemorizer.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		7584557AE41F95AA916B78D0 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				044AC7EAA46BD0CF30B07018 /* PracticeNote.swift */,
+				F8F943799F21CA67A85BED9F /* PracticeSession.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		A397FAC282C2A20B128DB8F6 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				D7BD51BF7CFC76DBE80230F1 /* CueSoundPlayer.swift */,
+				944100310ECAC61F8E40DF64 /* MicActivityDetector.swift */,
+				EC6EF5215F2564296A2865AD /* MIDIManager.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		D5D4C4E4E65F94EB9DD87B96 = {
+			isa = PBXGroup;
+			children = (
+				EBAA158F32234BCB0FA2FC1D /* Sources */,
+				2DF6B4848B81E6FB55A5A891 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		EBAA158F32234BCB0FA2FC1D /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				B8A24A88DDFDBB16DAB85D9C /* Assets.xcassets */,
+				11B1D5F071710347D6E9A1AB /* ScoreMemorizerApp.swift */,
+				7584557AE41F95AA916B78D0 /* Models */,
+				A397FAC282C2A20B128DB8F6 /* Services */,
+				24E076C6FFF2FD03863E5D06 /* Views */,
+			);
+			name = Sources;
+			path = ScoreMemorizer/Sources;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		9FA546986CAC2EDED08182F6 /* ScoreMemorizer */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 437BB5F07CFB5D93041ABDFE /* Build configuration list for PBXNativeTarget "ScoreMemorizer" */;
+			buildPhases = (
+				C4101360D90760D0D2042F0A /* Sources */,
+				CED625C825711EEF9A24BFDB /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ScoreMemorizer;
+			packageProductDependencies = (
+			);
+			productName = ScoreMemorizer;
+			productReference = C49C2AC9AC2A4C7254A5E5D3 /* ScoreMemorizer.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		59854B2D2177208D633DA7D8 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+					9FA546986CAC2EDED08182F6 = {
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = D3779A0F1D114C8E4C077D03 /* Build configuration list for PBXProject "ScoreMemorizer" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = D5D4C4E4E65F94EB9DD87B96;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 2DF6B4848B81E6FB55A5A891 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				9FA546986CAC2EDED08182F6 /* ScoreMemorizer */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		CED625C825711EEF9A24BFDB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AFCE281B14645E1A98E64BD6 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		C4101360D90760D0D2042F0A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7B63B4794248A93031D23CCF /* ContentView.swift in Sources */,
+				1DB0B2128F208C96F6C11922 /* CueSoundPlayer.swift in Sources */,
+				5FC7DDE72AF8B879223CF42C /* MIDIManager.swift in Sources */,
+				F2417ADCD0D2E360569A5663 /* MicActivityDetector.swift in Sources */,
+				A1F12AEB149B21837D0CECF0 /* PracticeNote.swift in Sources */,
+				93765503BFD2D0B3C98F8DF3 /* PracticeSession.swift in Sources */,
+				A4D85B37239468534BB29110 /* ScoreMemorizerApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		5DE05BBD1E0C446EB6A95033 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = 2HQJC64KR8;
+				INFOPLIST_FILE = ScoreMemorizer/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = ScoreMemorizer;
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "ScoreMemorizer listens for piano sound activity during Freeze and Go drills.";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UIRequiresFullScreen = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = rkuo.ScoreMemorizer;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		6984258A08E133415020B289 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = FC7C97FJWX;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 6.0;
+			};
+			name = Release;
+		};
+		D9C4C64E451B329D85D5A1AE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = 2HQJC64KR8;
+				INFOPLIST_FILE = ScoreMemorizer/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = ScoreMemorizer;
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "ScoreMemorizer listens for piano sound activity during Freeze and Go drills.";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UIRequiresFullScreen = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = rkuo.ScoreMemorizer;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+		DBB9EB2A0CC29C3BABFF7048 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = FC7C97FJWX;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 6.0;
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		437BB5F07CFB5D93041ABDFE /* Build configuration list for PBXNativeTarget "ScoreMemorizer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5DE05BBD1E0C446EB6A95033 /* Debug */,
+				D9C4C64E451B329D85D5A1AE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		D3779A0F1D114C8E4C077D03 /* Build configuration list for PBXProject "ScoreMemorizer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DBB9EB2A0CC29C3BABFF7048 /* Debug */,
+				6984258A08E133415020B289 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 59854B2D2177208D633DA7D8 /* Project object */;
+}
