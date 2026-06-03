@@ -19,7 +19,11 @@ final class PracticeSession {
     }
 
     var mode: Mode = .ready
-    var bpm = 80
+    var bpm = 80 {
+        didSet {
+            rescheduleTimerIfPlaying()
+        }
+    }
     var beatsPerBar = 4
     var freezeBars = 2
     var freezeChance = 0.18
@@ -146,11 +150,17 @@ final class PracticeSession {
     }
 
     private func startBeatTimer() {
+        beatTimer?.invalidate()
         beatTimer = Timer.scheduledTimer(withTimeInterval: beatInterval, repeats: true) { [weak self] _ in
             Task { @MainActor in
                 self?.tick()
             }
         }
+    }
+
+    private func rescheduleTimerIfPlaying() {
+        guard mode == .go || mode == .freeze else { return }
+        startBeatTimer()
     }
 
     private func tick() {
@@ -164,9 +174,6 @@ final class PracticeSession {
             }
         case .freeze:
             countdownBeats -= 1
-            if countdownBeats > 0 {
-                playCue(.beat)
-            }
             if isSounding, !hasLoggedEarlyStart, countdownBeats <= 1 {
                 earlyStarts += 1
                 hasLoggedEarlyStart = true
