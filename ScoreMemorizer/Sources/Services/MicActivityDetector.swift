@@ -23,6 +23,12 @@ final class MicActivityDetector {
     func start() {
         guard stateIsNotListening else { return }
 
+        #if targetEnvironment(simulator)
+        state = .unavailable("Microphone is not available in Simulator")
+        level = 0
+        return
+        #endif
+
         let session = AVAudioSession.sharedInstance()
         switch session.recordPermission {
         case .granted:
