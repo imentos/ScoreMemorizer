@@ -16,8 +16,6 @@ struct ContentView: View {
                 VStack(spacing: 16) {
                     AppTopBar(
                         tempoText: "\(session.bpm) BPM",
-                        micTitle: micButtonTitle,
-                        micAction: toggleMic,
                         settingsAction: { isShowingSettings = true }
                     )
 
@@ -52,27 +50,10 @@ struct ContentView: View {
         }
     }
 
-    private var micButtonTitle: String {
-        if case .listening = mic.state { return "Mic On" }
-        return "Mic"
-    }
-
-    private func toggleMic() {
-        if case .listening = mic.state {
-            mic.stop()
-        } else {
-            mic.onLevel = { level in
-                session.handleSoundLevel(level)
-            }
-            mic.start()
-        }
-    }
 }
 
 private struct AppTopBar: View {
     let tempoText: String
-    let micTitle: String
-    let micAction: () -> Void
     let settingsAction: () -> Void
 
     var body: some View {
@@ -96,14 +77,6 @@ private struct AppTopBar: View {
 
             Spacer(minLength: 8)
 
-            Button(action: micAction) {
-                Label(micTitle, systemImage: micTitle == "Mic On" ? "mic.fill" : "mic")
-                    .labelStyle(.iconOnly)
-                    .frame(width: 42, height: 42)
-            }
-            .buttonStyle(.bordered)
-            .accessibilityLabel(micTitle)
-
             Button(action: settingsAction) {
                 Image(systemName: "gearshape.fill")
                     .frame(width: 42, height: 42)
@@ -125,66 +98,38 @@ private struct PracticeSettingsView: View {
     var body: some View {
         NavigationStack {
             ScrollView {
-                VStack(spacing: 16) {
+                VStack(spacing: 20) {
                     SettingsCard(title: "Drill") {
                         SettingStepperRow(title: "Tempo", value: "\(session.bpm) BPM") {
-                            Button("-", action: { session.bpm = max(40, session.bpm - 2) })
-                            Button("+", action: { session.bpm = min(180, session.bpm + 2) })
+                            StepIconButton(systemImage: "minus", action: { session.bpm = max(40, session.bpm - 2) })
+                            StepIconButton(systemImage: "plus", action: { session.bpm = min(180, session.bpm + 2) })
                         }
 
-                        Picker("Time signature", selection: beatsBinding) {
-                            Text("3/4").tag(3)
-                            Text("4/4").tag(4)
-                            Text("6/8").tag(6)
+                        SettingPickerRow(title: "Time signature", value: timeSignatureText) {
+                            Picker("Time signature", selection: beatsBinding) {
+                                Text("3/4").tag(3)
+                                Text("4/4").tag(4)
+                                Text("6/8").tag(6)
+                            }
                         }
-                        .pickerStyle(.segmented)
 
                         SettingStepperRow(title: "Freeze length", value: session.freezeLengthText) {
-                            Button("-", action: { session.freezeBars = max(1, session.freezeBars - 1) })
-                            Button("+", action: { session.freezeBars = min(8, session.freezeBars + 1) })
+                            StepIconButton(systemImage: "minus", action: { session.freezeBars = max(1, session.freezeBars - 1) })
+                            StepIconButton(systemImage: "plus", action: { session.freezeBars = min(8, session.freezeBars + 1) })
                         }
 
-                        VStack(alignment: .leading, spacing: 8) {
-                            HStack {
-                                Text("Freeze frequency")
-                                Spacer()
-                                Text(session.freezeDensityLabel)
-                                    .fontWeight(.semibold)
-                            }
+                        SettingPickerRow(title: "Freeze frequency", value: session.freezeDensityLabel) {
                             Picker("Freeze frequency", selection: freezeChanceBinding) {
                                 Text("Low").tag(0.08)
                                 Text("Medium").tag(0.18)
                                 Text("High").tag(0.34)
                             }
-                            .pickerStyle(.segmented)
-                        }
-                    }
-
-                    SettingsCard(title: "Advanced") {
-                        DisclosureGroup("Mic sensitivity") {
-                            VStack(alignment: .leading, spacing: 10) {
-                                HStack {
-                                    Text("Threshold")
-                                    Spacer()
-                                    Text(String(format: "%.3f", session.micThreshold))
-                                        .fontWeight(.semibold)
-                                }
-                                Slider(value: micThresholdBinding, in: 0.01...0.12)
-                                SoundMeter(level: session.soundLevel, threshold: session.micThreshold, isListening: isListening)
-                            }
-                            .padding(.top, 8)
-                        }
-
-                        HStack {
-                            Text("Mic status")
-                            Spacer()
-                            Text(micStatus)
-                                .fontWeight(.semibold)
                         }
                     }
                 }
-                .padding(16)
-                .padding(.bottom, 40)
+                .padding(.horizontal, 18)
+                .padding(.top, 18)
+                .padding(.bottom, 48)
             }
             .background(Color.appBackground.ignoresSafeArea())
             .navigationTitle("Settings")
@@ -192,17 +137,8 @@ private struct PracticeSettingsView: View {
         }
     }
 
-    private var isListening: Bool {
-        if case .listening = mic.state { return true }
-        return false
-    }
-
-    private var micStatus: String {
-        switch mic.state {
-        case .idle: "Off"
-        case .listening: session.isSounding ? "Playing" : "Quiet"
-        case .unavailable: "Unavailable"
-        }
+    private var timeSignatureText: String {
+        session.beatsPerBar == 6 ? "6/8" : "\(session.beatsPerBar)/4"
     }
 
     private var beatsBinding: Binding<Int> {
@@ -213,9 +149,6 @@ private struct PracticeSettingsView: View {
         Binding(get: { session.freezeChance }, set: { session.freezeChance = $0 })
     }
 
-    private var micThresholdBinding: Binding<Float> {
-        Binding(get: { session.micThreshold }, set: { session.micThreshold = $0 })
-    }
 }
 
 private struct SettingsCard<Content: View>: View {
@@ -223,13 +156,13 @@ private struct SettingsCard<Content: View>: View {
     @ViewBuilder let content: Content
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 14) {
+        VStack(alignment: .leading, spacing: 20) {
             Text(title)
-                .font(.headline)
+                .font(.headline.weight(.semibold))
             content
         }
         .foregroundStyle(Color.appText)
-        .padding(14)
+        .padding(18)
         .frame(maxWidth: .infinity, alignment: .leading)
         .background(Color.panelBackground)
         .clipShape(RoundedRectangle(cornerRadius: 8))
@@ -242,21 +175,61 @@ private struct SettingStepperRow<Controls: View>: View {
     @ViewBuilder let controls: Controls
 
     var body: some View {
-        HStack(spacing: 12) {
-            VStack(alignment: .leading, spacing: 3) {
-                Text(title)
-                    .font(.body)
-                Text(value)
-                    .font(.headline)
-            }
-            Spacer()
-            HStack(spacing: 8) {
+        VStack(alignment: .leading, spacing: 12) {
+            SettingHeader(title: title, value: value)
+            HStack(spacing: 12) {
                 controls
             }
-            .buttonStyle(.bordered)
-            .foregroundStyle(Color.appText)
-        .controlSize(.large)
+            .frame(maxWidth: .infinity, alignment: .trailing)
         }
+        .padding(.vertical, 2)
+    }
+}
+
+private struct SettingPickerRow<Content: View>: View {
+    let title: String
+    let value: String
+    @ViewBuilder let content: Content
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            SettingHeader(title: title, value: value)
+            content
+                .pickerStyle(.segmented)
+        }
+        .padding(.vertical, 2)
+    }
+}
+
+private struct SettingHeader: View {
+    let title: String
+    let value: String
+
+    var body: some View {
+        HStack(alignment: .firstTextBaseline, spacing: 12) {
+            Text(title)
+                .font(.body.weight(.medium))
+            Spacer(minLength: 12)
+            Text(value)
+                .font(.headline)
+                .foregroundStyle(Color.appSecondaryText)
+        }
+    }
+}
+
+private struct StepIconButton: View {
+    let systemImage: String
+    let action: () -> Void
+
+    var body: some View {
+        Button(action: action) {
+            Image(systemName: systemImage)
+                .font(.headline.weight(.bold))
+                .frame(width: 44, height: 40)
+        }
+        .buttonStyle(.bordered)
+        .clipShape(RoundedRectangle(cornerRadius: 8))
+        .accessibilityLabel(systemImage == "plus" ? "Increase" : "Decrease")
     }
 }
 
